@@ -1,0 +1,115 @@
+{
+  "name": "markdown-kit",
+  "displayName": "Markdown Kit",
+  "description": "Collection of commands and utilities for managing Markdown notes in VSCode",
+  "publisher": "svsool",
+  "version": "1.0.0",
+  "author": "Svyatoslav Sobol <svyatoslav.sobol@gmail.com>",
+  "license": "MIT",
+  "icon": "media/markdown-kit.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/svsool/vscode-markdown-kit"
+  },
+  "bugs": {
+    "url": "https://github.com/svsool/vscode-markdown-kit"
+  },
+  "engines": {
+    "vscode": "^1.47.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "markdown",
+    "kit",
+    "utils",
+    "utilities",
+    "refactoring",
+    "copy",
+    "paste",
+    "html",
+    "clipboard",
+    "extract"
+  ],
+  "activationEvents": [
+    "onLanguage:markdown",
+    "onCommand:markdown-kit.pasteHtmlAsMarkdown"
+  ],
+  "main": "./dist/extension",
+  "contributes": {
+    "commands": [
+      {
+        "command": "markdown-kit.pasteHtmlAsMarkdown",
+        "title": "Paste HTML as Markdown",
+        "category": "Markdown Kit"
+      }
+    ]
+  },
+  "lint-staged": {
+    "*.ts": [
+      "eslint --fix"
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "webpack --mode production",
+    "deploy": "vsce publish --yarn",
+    "package": "vsce package --yarn",
+    "clean": "del dist out",
+    "lint": "eslint src --ext ts",
+    "compile": "webpack --mode development",
+    "compile:tests": "tsc -p ./ && yarn run webpack --mode development",
+    "watch": "webpack --mode development -w",
+    "pretest": "yarn compile:tests",
+    "pretest:ci": "yarn compile:tests",
+    "pretest:watch": "yarn compile:tests",
+    "release": "standard-version",
+    "ts": "tsc --noEmit",
+    "test": "node ./out/test/runTest.js",
+    "test:ci": "cross-env JEST_CI=true JEST_COLLECT_COVERAGE=true node ./out/test/runTest.js",
+    "test:watch": "cross-env JEST_WATCH=true node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^9.1.1",
+    "@commitlint/config-conventional": "^9.1.1",
+    "@types/del": "^4.0.0",
+    "@types/fs-extra": "^9.0.1",
+    "@types/jest": "^26.0.9",
+    "@types/lodash.debounce": "^4.0.6",
+    "@types/lodash.groupby": "^4.6.6",
+    "@types/lodash.range": "^3.2.6",
+    "@types/markdown-it": "^10.0.2",
+    "@types/moment": "^2.13.0",
+    "@types/node": "^14.0.27",
+    "@types/open": "^6.2.1",
+    "@types/turndown": "^5.0.0",
+    "@types/vscode": "^1.47.0",
+    "@typescript-eslint/eslint-plugin": "^3.9.0",
+    "@typescript-eslint/parser": "^3.9.0",
+    "cross-env": "^7.0.2",
+    "del": "^5.1.0",
+    "del-cli": "^3.0.1",
+    "eslint": "^7.6.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "husky": "^4.2.5",
+    "jest": "^26.3.0",
+    "jest-environment-vscode": "^1.0.0",
+    "lint-staged": "^10.2.9",
+    "prettier": "^2.0.5",
+    "standard-version": "^8.0.2",
+    "ts-jest": "^26.2.0",
+    "ts-loader": "^8.0.2",
+    "typescript": "^3.9.7",
+    "vsce": "^1.78.0",
+    "vscode-test": "^1.3.0",
+    "wait-for-expect": "^3.0.2",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12"
+  },
+  "dependencies": {
+    "fs-extra": "^9.0.1",
+    "turndown": "^6.0.0"
+  }
+}

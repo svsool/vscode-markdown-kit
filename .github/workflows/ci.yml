@@ -1,0 +1,91 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - '**'
+    tags:
+      - 'v*'
+  pull_request:
+
+jobs:
+  check-types:
+    name: Check Types
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v1
+      - name: Setup Node
+        uses: actions/setup-node@v1
+      - name: Install Dependencies
+        run: yarn
+      - name: Check Types
+        run: npm run ts
+  lint:
+    name: Run Linter
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v1
+      - name: Setup Node
+        uses: actions/setup-node@v1
+      - name: Install Dependencies
+        run: yarn
+      - name: Check Types
+        run: npm run lint
+  tests:
+    name: Run Tests
+    strategy:
+      matrix:
+        os: [macos-10.15, ubuntu-18.04, windows-2019]
+    runs-on: ${{ matrix.os }}
+    env:
+      OS: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v1
+      - name: Setup Node
+        uses: actions/setup-node@v1
+      - name: Install Dependencies
+        run: yarn
+      - name: Run Tests
+        uses: GabrielBB/xvfb-action@v1.0
+        with:
+          run: yarn test:ci
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          directory: ./coverage/
+          env_vars: OS
+          fail_ci_if_error: true
+  create_release:
+    name: Create Release
+    if: success() && startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-18.04
+    needs: [check-types, lint, tests]
+    steps:
+      - uses: actions/checkout@v1
+      - name: Setup Node
+        uses: actions/setup-node@v1
+      - name: Install Dependencies
+        run: yarn
+      - name: Package
+        run: yarn package
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          prerelease: false
+          files: |
+            markdown-kit-*.vsix
+  publish:
+    name: Publish Release
+    runs-on: ubuntu-18.04
+    needs: [create_release]
+    steps:
+      - uses: actions/checkout@v1
+      - name: Setup Node
+        uses: actions/setup-node@v1
+      - name: Install Dependencies
+        run: yarn
+      - name: Publish
+        env:
+          VSCE_PAT: ${{ secrets.VSCE_PAT }}
+        run: yarn deploy
