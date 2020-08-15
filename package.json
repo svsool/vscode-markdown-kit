@@ -3,7 +3,7 @@
   "displayName": "Markdown Kit",
   "description": "Collection of commands and utilities for managing Markdown notes in VSCode",
   "publisher": "svsool",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "author": "Svyatoslav Sobol <svyatoslav.sobol@gmail.com>",
   "license": "MIT",
   "icon": "media/markdown-kit.png",
