@@ -34,7 +34,8 @@
   ],
   "activationEvents": [
     "onLanguage:markdown",
-    "onCommand:markdown-kit.pasteHtmlAsMarkdown"
+    "onCommand:markdown-kit.pasteHtmlAsMarkdown",
+    "onCommand:markdown-kit.extractRangeToNewNote"
   ],
   "main": "./dist/extension",
   "contributes": {
@@ -42,6 +43,11 @@
       {
         "command": "markdown-kit.pasteHtmlAsMarkdown",
         "title": "Paste HTML as Markdown",
+        "category": "Markdown Kit"
+      },
+      {
+        "command": "markdown-kit.extractRangeToNewNote",
+        "title": "Extract range to a new note",
         "category": "Markdown Kit"
       }
     ]

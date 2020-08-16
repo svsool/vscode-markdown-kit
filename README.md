@@ -14,11 +14,11 @@ It was hard to find a similar extension working on Mac. It also works on Windows
 
 ![Paste HTML as Markdown](./media/demo/Pasting%20HTML%20as%20Markdown.gif)
 
-### Extract selected fragment to a new note
+### Extract range to a new note
 
 Coming soon
 
-### Send selected fragment to an exisitng note
+### Send range to an existing note
 
 Coming soon
 
