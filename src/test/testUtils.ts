@@ -1,8 +1,20 @@
+import del from 'del';
 import fs from 'fs';
 import path from 'path';
 import { workspace, Uri, commands, ConfigurationTarget } from 'vscode';
 
 import * as utils from '../utils';
+
+export const cleanWorkspace = () => {
+  const workspaceFolder = utils.getWorkspaceFolder();
+
+  if (workspaceFolder) {
+    del.sync(['**/!(.vscode)'], {
+      force: true,
+      cwd: workspaceFolder,
+    });
+  }
+};
 
 export const createFile = async (
   filename: string,
@@ -63,6 +75,7 @@ export const updateConfigProperty = async (property: string, value: unknown) => 
 
 export const closeEditorsAndCleanWorkspace = async () => {
   await closeAllEditors();
+  cleanWorkspace();
 };
 
 export const toPlainObject = <R>(value: unknown): R =>

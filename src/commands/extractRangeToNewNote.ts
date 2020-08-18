@@ -40,7 +40,7 @@ const extractRangeToNewNote = async (document: vscode.TextDocument, range: vscod
 
   if (!vscode.workspace.getWorkspaceFolder(targetUri)) {
     throw new Error(
-      `New location should be within the current workspace.${
+      `New location "${targetUri.fsPath}" should be within the current workspace.${
         workspaceFolder ? ` Example: ${path.join(workspaceFolder.uri.fsPath, filename)}` : ''
       }`,
     );
