@@ -64,8 +64,10 @@ describe('extractRangeToNewNote command', () => {
 
     const newDoc = await openTextDocument(`${name1}.md`);
 
-    expect(await newDoc.getText()).toBe(`Multiline
-    Hello world.`);
+    expect(await newDoc.getText()).toMatchInlineSnapshot(`
+      "Multiline
+          Hello world."
+    `);
 
     targetPathInputBoxSpy.mockRestore();
   });
@@ -131,7 +133,7 @@ describe('extractRangeToNewNote command', () => {
     targetPathInputBoxSpy.mockReturnValue(Promise.resolve('/random-path/file.md'));
 
     expect(extractRangeToNewNote(doc, new vscode.Range(0, 0, 0, 12))).rejects.toThrowError(
-      `New location "/random-path/file.md" should be within the current workspace.`,
+      'should be within the current workspace',
     );
 
     targetPathInputBoxSpy.mockRestore();
