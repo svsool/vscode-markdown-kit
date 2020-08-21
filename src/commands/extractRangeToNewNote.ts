@@ -22,7 +22,22 @@ const deleteRange = async (document: vscode.TextDocument, range: vscode.Range) =
   await editor.edit((edit) => edit.delete(range));
 };
 
-const extractRangeToNewNote = async (document: vscode.TextDocument, range: vscode.Range) => {
+const extractRangeToNewNote = async (
+  documentParam?: vscode.TextDocument,
+  rangeParam?: vscode.Range,
+) => {
+  const document = documentParam ? documentParam : window.activeTextEditor?.document;
+
+  if (!document || (document && document.languageId !== 'markdown')) {
+    return;
+  }
+
+  const range = rangeParam ? rangeParam : window.activeTextEditor?.selection;
+
+  if (!range || (range && range.isEmpty)) {
+    return;
+  }
+
   const filepath = path.join(path.dirname(document.uri.fsPath), filename);
   const targetPath = await window.showInputBox({
     prompt,

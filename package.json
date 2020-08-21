@@ -50,7 +50,15 @@
         "title": "Extract range to a new note",
         "category": "Markdown Kit"
       }
-    ]
+    ],
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "markdown-kit.extractRangeToNewNote",
+          "when": "editorHasSelection && editorLangId == markdown"
+        }
+      ]
+    }
   },
   "lint-staged": {
     "*.ts": [

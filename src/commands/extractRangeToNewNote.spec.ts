@@ -1,4 +1,4 @@
-import vscode from 'vscode';
+import vscode, { window } from 'vscode';
 import path from 'path';
 
 import extractRangeToNewNote from './extractRangeToNewNote';
@@ -66,6 +66,55 @@ describe('extractRangeToNewNote command', () => {
 
     expect(await newDoc.getText()).toBe(`Multiline
     Hello world.`);
+
+    targetPathInputBoxSpy.mockRestore();
+  });
+
+  it('should extract range from active markdown file', async () => {
+    const name0 = rndName();
+    const name1 = rndName();
+
+    await createFile(`${name0}.md`, 'Hello world.');
+
+    const doc = await openTextDocument(`${name0}.md`);
+    const editor = await window.showTextDocument(doc);
+
+    editor.selection = new vscode.Selection(0, 0, 0, 12);
+
+    const targetPathInputBoxSpy = jest.spyOn(vscode.window, 'showInputBox');
+
+    targetPathInputBoxSpy.mockReturnValue(
+      Promise.resolve(path.join(getWorkspaceFolder()!, `${name1}.md`)),
+    );
+
+    await extractRangeToNewNote();
+
+    expect(await doc.getText()).toBe('');
+
+    const newDoc = await openTextDocument(`${name1}.md`);
+
+    expect(await newDoc.getText()).toBe('Hello world.');
+
+    targetPathInputBoxSpy.mockRestore();
+  });
+
+  it('should not extract anything from unknown file format', async () => {
+    const name0 = rndName();
+
+    await createFile(`${name0}.txt`, 'Hello world.');
+
+    const doc = await openTextDocument(`${name0}.txt`);
+    const editor = await window.showTextDocument(doc);
+
+    editor.selection = new vscode.Selection(0, 0, 0, 12);
+
+    const targetPathInputBoxSpy = jest.spyOn(vscode.window, 'showInputBox');
+
+    await extractRangeToNewNote();
+
+    expect(await doc.getText()).toBe('Hello world.');
+
+    expect(targetPathInputBoxSpy).not.toBeCalled();
 
     targetPathInputBoxSpy.mockRestore();
   });
