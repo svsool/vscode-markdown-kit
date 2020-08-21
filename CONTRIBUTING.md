@@ -6,6 +6,7 @@
 src
  ├── commands - contains internal / external commands, e.g. open today or random note commands
  ├── extension.ts - plugin entrypoint
+ ├── features - contains features, usually feature accepts plugin context and implements certain functionality
  ├── test - contains test runner and common test utils
  └── utils - common utils
 ```
