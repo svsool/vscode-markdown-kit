@@ -2,6 +2,11 @@
 
 Collection of commands and utilities for managing Markdown notes in VSCode.
 
+These utils were originally thought to be part of [Memo](https://github.com/svsool/vscode-memo), but I hope the community will find it useful standalone.
+
+[![](https://vsmarketplacebadge.apphb.com/version-short/svsool.markdown-kit.svg)](https://marketplace.visualstudio.com/items?itemName=svsool.markdown-kit)
+[![](https://github.com/svsool/vscode-markdown-kit/workflows/CI/badge.svg?branch=master)](https://github.com/svsool/vscode-markdown-kit/actions?query=workflow%3ACI+branch%3Amaster)
+
 ## Getting started
 
 If you want to try out Markdown Kit just install it via marketplace using [this link](https://marketplace.visualstudio.com/items?itemName=svsool.markdown-kit).
