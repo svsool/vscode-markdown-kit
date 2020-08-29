@@ -1,6 +1,6 @@
 import { CodeActionProvider } from 'vscode';
 
-const extractRangeToNewNoteProvider: CodeActionProvider = {
+const codeActionProvider: CodeActionProvider = {
   provideCodeActions(document, range) {
     if (range.isEmpty) {
       return [];
@@ -12,8 +12,13 @@ const extractRangeToNewNoteProvider: CodeActionProvider = {
         command: 'markdown-kit.extractRangeToNewNote',
         arguments: [document, range],
       },
+      {
+        title: 'Send range to a new note',
+        command: 'markdown-kit.sendRangeToExistingNote',
+        arguments: [document, range],
+      },
     ];
   },
 };
 
-export default extractRangeToNewNoteProvider;
+export default codeActionProvider;

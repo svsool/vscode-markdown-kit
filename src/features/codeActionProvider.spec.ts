@@ -1,9 +1,9 @@
 import vscode from 'vscode';
 
-import extractRangeToNewNoteProvider from './extractRangeToNewNoteProvider';
+import codeActionProvider from './codeActionProvider';
 import { rndName, createFile, openTextDocument } from '../test/testUtils';
 
-describe('provideCodeActions()', () => {
+describe('codeActionProvider', () => {
   it('should provide code actions', async () => {
     const name0 = rndName();
 
@@ -13,16 +13,16 @@ describe('provideCodeActions()', () => {
     const range = new vscode.Range(0, 0, 0, 12);
 
     expect(
-      extractRangeToNewNoteProvider.provideCodeActions(
-        doc,
-        range,
-        undefined as any,
-        undefined as any,
-      ),
+      codeActionProvider.provideCodeActions(doc, range, undefined as any, undefined as any),
     ).toEqual([
       {
         title: 'Extract range to a new note',
         command: 'markdown-kit.extractRangeToNewNote',
+        arguments: [doc, range],
+      },
+      {
+        title: 'Send range to a new note',
+        command: 'markdown-kit.sendRangeToExistingNote',
         arguments: [doc, range],
       },
     ]);

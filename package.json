@@ -35,7 +35,8 @@
   "activationEvents": [
     "onLanguage:markdown",
     "onCommand:markdown-kit.pasteHtmlAsMarkdown",
-    "onCommand:markdown-kit.extractRangeToNewNote"
+    "onCommand:markdown-kit.extractRangeToNewNote",
+    "onCommand:markdown-kit.sendRangeToExistingNote"
   ],
   "main": "./dist/extension",
   "contributes": {
@@ -49,12 +50,46 @@
         "command": "markdown-kit.extractRangeToNewNote",
         "title": "Extract range to a new note",
         "category": "Markdown Kit"
+      },
+      {
+        "command": "markdown-kit.sendRangeToExistingNote",
+        "title": "Send range to an existing note",
+        "category": "Markdown Kit"
       }
     ],
+    "configuration": {
+      "type": "object",
+      "title": "Markdown Kit",
+      "properties": {
+        "markdown-kit.sendRangeToExistingNote.position": {
+          "scope": "resource",
+          "type": "string",
+          "description": "Specifies the position where to save the range in the existing note.",
+          "enum": ["start", "end"],
+          "default": "start"
+        },
+        "markdown-kit.sendRangeToExistingNote.removeRangeFromSource": {
+          "scope": "resource",
+          "type": "boolean",
+          "description": "Removes when checked otherwise keeps the source intact.",
+          "default": true
+        },
+        "markdown-kit.sendRangeToExistingNote.showTarget": {
+          "scope": "resource",
+          "type": "boolean",
+          "description": "Shows the target note when checked otherwise stays in the current one.",
+          "default": true
+        }
+      }
+    },
     "menus": {
       "commandPalette": [
         {
           "command": "markdown-kit.extractRangeToNewNote",
+          "when": "editorHasSelection && editorLangId == markdown"
+        },
+        {
+          "command": "markdown-kit.sendRangeToExistingNote",
           "when": "editorHasSelection && editorLangId == markdown"
         }
       ]
@@ -123,6 +158,7 @@
     "webpack-cli": "^3.3.12"
   },
   "dependencies": {
+    "cross-path-sort": "^1.0.0",
     "fs-extra": "^9.0.1",
     "turndown": "^6.0.0"
   }

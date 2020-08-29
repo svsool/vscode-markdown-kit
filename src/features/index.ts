@@ -1,1 +1,1 @@
-export { default as extractRangeToNewNoteProvider } from './extractRangeToNewNoteProvider';
+export { default as codeActionProvider } from './codeActionProvider';

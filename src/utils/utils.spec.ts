@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 
 import { closeEditorsAndCleanWorkspace } from '../test/testUtils';
-import { getWorkspaceFolder, ensureDirectoryExists } from './utils';
+import { getWorkspaceFolder, ensureDirectoryExists, getMarkdownKitConfigProperty } from './utils';
 
 describe('getWorkspaceFolder()', () => {
   it('should return workspace folder', () => {
@@ -20,5 +20,15 @@ describe('ensureDirectoryExists()', () => {
     expect(fs.existsSync(dirPath)).toBe(false);
     ensureDirectoryExists(path.join(dirPath, 'file.md'));
     expect(fs.existsSync(dirPath)).toBe(true);
+  });
+});
+
+describe('getMarkdownKitConfigProperty()', () => {
+  it('should return config property', () => {
+    expect(getMarkdownKitConfigProperty('sendRangeToTheNote', null)).toBe('beginning');
+  });
+
+  it('should return default property on getting unknown config property', () => {
+    expect(getMarkdownKitConfigProperty('unknownProperty', 'default')).toBe('default');
   });
 });

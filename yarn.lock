@@ -2291,6 +2291,11 @@ cross-env@^7.0.2:
   dependencies:
     cross-spawn "^7.0.1"
 
+cross-path-sort@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/cross-path-sort/-/cross-path-sort-1.0.0.tgz#9c07df9fe5ebdc49d980d99ffcf845f7717865b8"
+  integrity sha512-aNS22Ns5IC2YmotLFBaQLmH+RtRpfjQlnZtUuwlHUaaxMKUeLQ0Pve1c69zgU6jmh2Irug1ZiMex9XkYdm5Mwg==
+
 cross-spawn@^6.0.0, cross-spawn@^6.0.5:
   version "6.0.5"
   resolved "https://registry.yarnpkg.com/cross-spawn/-/cross-spawn-6.0.5.tgz#4a5ec7c64dfae22c3a14124dbacdee846d80cbc4"
