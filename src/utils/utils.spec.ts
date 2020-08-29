@@ -25,7 +25,7 @@ describe('ensureDirectoryExists()', () => {
 
 describe('getMarkdownKitConfigProperty()', () => {
   it('should return config property', () => {
-    expect(getMarkdownKitConfigProperty('sendRangeToTheNote', null)).toBe('beginning');
+    expect(getMarkdownKitConfigProperty('sendRangeToExistingNote.position', null)).toBe('start');
   });
 
   it('should return default property on getting unknown config property', () => {
