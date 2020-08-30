@@ -111,6 +111,10 @@ const sendRangeToExistingNote = async (
       const editor = await showFile(targetUri);
 
       updateSelection(editor, insertPos);
+    } else {
+      vscode.window.showInformationMessage(
+        `Range successfully sent to "${path.basename(targetUri.fsPath)}".`,
+      );
     }
 
     quickPick.hide();
