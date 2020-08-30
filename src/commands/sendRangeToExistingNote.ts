@@ -28,15 +28,30 @@ const createExistingNoteUrisQuickPick = async () => {
 const sendText = async (uri: vscode.Uri, text: string, shouldAppend: boolean) => {
   const doc = await workspace.openTextDocument(uri);
   const workspaceEdit = new vscode.WorkspaceEdit();
-  workspaceEdit.set(uri, [
-    shouldAppend
-      ? vscode.TextEdit.insert(new vscode.Position(0, 0), text + '\n\n')
-      : vscode.TextEdit.insert(new vscode.Position(doc.lineCount, 0), '\n' + text + '\n'),
-  ]);
+  const position = new vscode.Position(shouldAppend || doc.lineCount === 0 ? 0 : doc.lineCount, 0);
+  const hasOneEmptyLine = doc.lineCount === 1 && doc.lineAt(0).text.trim() === '';
+  const lastLineHasContent = doc.lineAt(doc.lineCount - 1).text.trim() !== '';
+  const maybeLeadingNewLine = !shouldAppend || (!shouldAppend && lastLineHasContent) ? '\n' : '';
+  const maybeTrailingNewLine =
+    (shouldAppend && !hasOneEmptyLine) || doc.lineCount === 0 || !shouldAppend ? '\n' : '';
+  const maybePushLine = shouldAppend || (!shouldAppend && lastLineHasContent) ? '\n' : '';
+  const content = maybePushLine + maybeLeadingNewLine + text + maybeTrailingNewLine;
+  workspaceEdit.set(uri, [vscode.TextEdit.insert(position, content)]);
 
   await vscode.workspace.applyEdit(workspaceEdit);
 
+  const insertPos =
+    shouldAppend || doc.lineCount === 0
+      ? doc.positionAt(text.length)
+      : doc.positionAt(doc.offsetAt(new vscode.Position(doc.lineCount, 0)) + ('\n' + text).length);
+
   await doc.save();
+
+  return insertPos;
+};
+
+const updateSelection = (editor: vscode.TextEditor, pos: vscode.Position) => {
+  editor.selection = new vscode.Selection(pos.line, pos.character, pos.line, pos.character);
 };
 
 const showFile = async (uri: vscode.Uri) =>
@@ -82,14 +97,20 @@ const sendRangeToExistingNote = async (
     const showTarget = getMarkdownKitConfigProperty('sendRangeToExistingNote.showTarget', true);
 
     // Order matters
-    await sendText(targetUri, document.getText(range).trim(), position === 'start');
+    const insertPos = await sendText(
+      targetUri,
+      document.getText(range).trim(),
+      position === 'start',
+    );
 
     if (removeRangeFromSource) {
       await deleteRange(document, range);
     }
 
     if (showTarget) {
-      await showFile(targetUri);
+      const editor = await showFile(targetUri);
+
+      updateSelection(editor, insertPos);
     }
 
     quickPick.hide();

@@ -21,7 +21,7 @@ describe('codeActionProvider', () => {
         arguments: [doc, range],
       },
       {
-        title: 'Send range to a new note',
+        title: 'Send range to an existing note',
         command: 'markdown-kit.sendRangeToExistingNote',
         arguments: [doc, range],
       },
