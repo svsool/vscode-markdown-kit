@@ -71,7 +71,7 @@
         "markdown-kit.sendRangeToExistingNote.removeRangeFromSource": {
           "scope": "resource",
           "type": "boolean",
-          "description": "Removes when checked otherwise keeps the source intact.",
+          "description": "Removes range from the source when checked otherwise keeps the source intact.",
           "default": true
         },
         "markdown-kit.sendRangeToExistingNote.showTarget": {

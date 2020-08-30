@@ -26,7 +26,9 @@ It was hard to find a similar extension working on Mac. It also works on Windows
 
 ### Send range to an existing note
 
-Coming soon
+![Send range to an existing note](./media/demo/Send%20range%20to%20a%20new%20note.gif)
+
+_Settings such as append position, keeping / removing range and showing target are configurable._
 
 ## Contributing
 
