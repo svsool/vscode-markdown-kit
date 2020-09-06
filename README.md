@@ -24,7 +24,7 @@ It was hard to find a similar extension working on Mac. It also works on Windows
 
 ![Extract range to a new note](./media/demo/Extracting%20range%20to%20a%20new%20note.gif)
 
-### Send range to an existing note
+### Unreleased: Send range to an existing note
 
 ![Send range to an existing note](./media/demo/Send%20range%20to%20a%20new%20note.gif)
 
