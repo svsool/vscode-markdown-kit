@@ -4,7 +4,7 @@
   "description": "Collection of commands and utilities for managing Markdown notes in VSCode",
   "publisher": "svsool",
   "version": "1.2.0",
-  "author": "Svyatoslav Sobol <svyatoslav.sobol@gmail.com>",
+  "author": "Svyatoslav Sobol <svyat.nx@gmail.com>",
   "license": "MIT",
   "icon": "media/markdown-kit.png",
   "repository": {
